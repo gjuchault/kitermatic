@@ -15,7 +15,6 @@ class ContainerLog extends Component {
 
     return (
       <box
-        ref="box"
         label={` ${label} `}
         top="0"
         left="25%"

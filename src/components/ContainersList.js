@@ -13,18 +13,18 @@ class ContainersList extends Component {
   }
 
   componentDidMount() {
-    this.refs.list.focus()
+    this.list.focus()
   }
 
   onSelect() {
-    containers.active = containers.list[this.refs.list.selected]
+    containers.active = containers.list[this.list.selected]
     listenForLogs()
   }
 
   render() {
     return (
       <list
-        ref="list"
+        ref={c => { this.list = c }}
         label=" Containers "
         top="0"
         left="0"
