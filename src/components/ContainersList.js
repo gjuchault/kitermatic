@@ -14,6 +14,11 @@ class ContainersList extends Component {
 
   componentDidMount() {
     this.list.focus()
+    this.list.on('keypress', (_, key) => {
+      if (key.name === 'up' || key.name === 'down') {
+        this.list.enterSelected()
+      }
+    })
   }
 
   onSelect() {
