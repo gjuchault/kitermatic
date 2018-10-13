@@ -18,23 +18,39 @@ const containers = store({
 class Container {
   constructor(data) {
     this.name = data.Names[0].slice(1)
-    this.image = data.Image
+    this.image = Container.parseImage(data.Image)
     this.id = data.Id
+  }
+
+  static parseImage(str) {
+    const parsed = require('url').parse(str).path
+
+    return parsed && parsed.startsWith('/') ? parsed.slice(1) : str
   }
 }
 
 export const listenForLogs = async () => {
   const container = docker.getContainer(containers.active.id)
+  let shouldClear = false
 
   if (logs) logs.removeAllListeners()
   if (logStream) logStream.destroy()
-  if (containers.activeLogs) containers.activeLogs = ''
+  if (containers.activeLogs) {
+    shouldClear = true
+    containers.activeLogs = 'Loading ...'
+  }
 
   logs = await container.logs({ follow: true, stdout: true, stderr: true, tail })
 
   logStream = new stream.PassThrough()
   logStream.destroy
   logStream.on('data', chunk => {
+    if (shouldClear) {
+      shouldClear = false
+      containers.activeLogs = chunk.toString('utf8')
+      return
+    }
+
     containers.activeLogs += chunk.toString('utf8')
   })
 

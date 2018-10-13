@@ -4,7 +4,7 @@ import env from '../env'
 import containers, { listenForLogs } from '../store/containers'
 
 const theme = env.KTRM_UI_THEME_BG || 'cyan'
-const themeFg = env.KTRM_UI_THEME_FG || 'cyan'
+const themeFg = env.KTRM_UI_THEME_FG || 'black'
 
 class ContainersList extends Component {
   constructor() {
@@ -30,7 +30,7 @@ class ContainersList extends Component {
         left="0"
         onSelect={this.onSelect}
         width="25%"
-        height="100%"
+        height="95%"
         interactive={true}
         border={{ type: 'line' }}
         mouse={true}
