@@ -40,7 +40,8 @@ class ContainersList extends Component {
           selected: { fg: themeFg, bg: theme },
           item: { height: 2 }
         }}
-        items={containers.list.map(c => `${c.name}\n${c.image}`)}
+        tags={true}
+        items={containers.list.map(c => `${c.name}\n{grey-fg}${c.image}{/grey-fg}`)}
       />
     )
   }
