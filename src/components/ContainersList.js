@@ -21,6 +21,13 @@ class ContainersList extends Component {
     listenForLogs()
   }
 
+  containerStr(c) {
+    return [
+      c.running ? c.name : `[stopped] ${c.name}`,
+      `{grey-fg}${c.image}{/grey-fg}`
+    ].join('\n')
+  }
+
   render() {
     return (
       <list
@@ -41,7 +48,7 @@ class ContainersList extends Component {
           item: { height: 2 }
         }}
         tags={true}
-        items={containers.list.map(c => `${c.name}\n{grey-fg}${c.image}{/grey-fg}`)}
+        items={containers.list.map(this.containerStr)}
       />
     )
   }

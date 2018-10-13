@@ -18,6 +18,7 @@ const containers = store({
 class Container {
   constructor(data) {
     this.name = data.Names[0].slice(1)
+    this.running = data.State === 'running'
     this.image = Container.parseImage(data.Image)
     this.id = data.Id
   }
@@ -62,7 +63,7 @@ export const listenForLogs = async () => {
 }
 
 export const refreshContainers = async () => {
-  const dContainers = await docker.listContainers()
+  const dContainers = await docker.listContainers({ all: true })
 
   containers.list = dContainers.map(c => new Container(c))
 
