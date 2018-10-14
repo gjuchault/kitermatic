@@ -26,7 +26,6 @@ class ContainerLog extends Component {
         border={{ type: 'line' }}
         scrollable={true}
         scrollbar={{ style: { bg: theme } }}
-        mouse={true}
         style={{ border: { fg: theme } }}
         content={containers.activeLogs}
       />

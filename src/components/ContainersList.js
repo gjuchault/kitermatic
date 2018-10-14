@@ -45,7 +45,6 @@ class ContainersList extends Component {
         height="95%"
         interactive={true}
         border={{ type: 'line' }}
-        mouse={true}
         keys={true}
         style={{
           border: { fg: theme },
