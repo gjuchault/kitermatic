@@ -4,7 +4,6 @@ import docker from '../docker'
 import env, { number } from '../env'
 
 const tail = number(env.KTRM_LOGS_TAIL, 100)
-const interval = number(env.KTRM_REFRESH_INTERVAL, 3000)
 
 let logs
 let logStream
@@ -15,18 +14,15 @@ const containers = store({
   list: []
 })
 
-class Container {
-  constructor(data) {
-    this.name = data.Names[0].slice(1)
-    this.running = data.State === 'running'
-    this.image = Container.parseImage(data.Image)
-    this.id = data.Id
-  }
+export const parseContainer = (container) => {
+  const urlImage = require('url').parse(container.Image).path
+  const image = urlImage && urlImage.startsWith('/') ? urlImage.slice(1) : container.Image
 
-  static parseImage(str) {
-    const parsed = require('url').parse(str).path
-
-    return parsed && parsed.startsWith('/') ? parsed.slice(1) : str
+  return {
+    name: container.Names[0].slice(1),
+    running: container.State === 'running',
+    image,
+    id: container.Id
   }
 }
 
@@ -65,15 +61,12 @@ export const listenForLogs = async () => {
 export const refreshContainers = async () => {
   const dContainers = await docker.listContainers({ all: true })
 
-  containers.list = dContainers.map(c => new Container(c))
+  containers.list = dContainers.map(parseContainer)
 
   if (!containers.active) {
     containers.active = containers.list[0]
     listenForLogs()
   }
 }
-
-refreshContainers()
-setInterval(refreshContainers, interval)
 
 export default containers
