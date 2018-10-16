@@ -9,6 +9,7 @@ let logs
 let logStream
 
 const containers = store({
+  detailed: null,
   active: null,
   activeLogs: '',
   list: []

@@ -24,7 +24,7 @@ const lockModal = (message) => {
 
 class Shortcuts extends Component {
   componentDidMount() {
-    screen.key(['s'], async () => {
+    screen.key('s', async () => {
       if (isLocked) {
         return
       }
@@ -46,7 +46,7 @@ class Shortcuts extends Component {
       unlockModal()
     })
 
-    screen.key(['r'], async () => {
+    screen.key('r', async () => {
       if (isLocked) {
         return
       }
@@ -60,7 +60,7 @@ class Shortcuts extends Component {
       unlockModal()
     })
 
-    screen.key(['e'], async () => {
+    screen.key('e', async () => {
       // fixme: mouse listening screws screen.exec
 
       const unlockModal = lockModal(`Starting sh in container ${containers.active.name}`)
@@ -70,10 +70,14 @@ class Shortcuts extends Component {
       unlockModal()
     })
 
-    screen.key(['enter'], () => {
+    screen.key('enter', () => {
       containers.detailed = containers.active
 
       // fixme: `view(App)` on `src/views/App.js` should handle this render
+      screen.unkey('s')
+      screen.unkey('r')
+      screen.unkey('e')
+      screen.unkey('enter')
       screen.render()
     })
   }
