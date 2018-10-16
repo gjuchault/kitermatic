@@ -11,6 +11,17 @@ const theme = env.KTRM_UI_THEME_BG || 'cyan'
 
 const kbd = str => `{${theme}-fg}{bold}${str}{/bold}{/${theme}-fg}`
 
+const lockModal = (message) => {
+  lock()
+  loadingModal.message = message
+  loadingModal.active = true
+
+  return () => {
+    loadingModal.active = false
+    unlock()
+  }
+}
+
 class Shortcuts extends Component {
   componentDidMount() {
     screen.key(['s'], async () => {
@@ -18,9 +29,7 @@ class Shortcuts extends Component {
         return
       }
 
-      lock()
-      loadingModal.message = `Stopping container ${containers.active.name}`
-      loadingModal.active = true
+      const unlockModal = lockModal(`Stopping container ${containers.active.name}`)
 
       const container = await docker.getContainer(containers.active.id)
 
@@ -34,8 +43,7 @@ class Shortcuts extends Component {
 
       await refreshContainers()
 
-      loadingModal.active = false
-      unlock()
+      unlockModal()
     })
 
     screen.key(['r'], async () => {
@@ -43,32 +51,41 @@ class Shortcuts extends Component {
         return
       }
 
-      lock()
-      loadingModal.message = `Restarting container ${containers.active.name}`
-      loadingModal.active = true
+      const unlockModal = lockModal(`Restarting container ${containers.active.name}`)
 
       const container = await docker.getContainer(containers.active.id)
-
       await container.restart()
       await refreshContainers()
 
-      loadingModal.active = false
-      unlock()
+      unlockModal()
     })
 
     screen.key(['e'], async () => {
-      lock()
-      loadingModal.message = `Starting sh in container ${containers.active.name}`
-      loadingModal.active = true
+      // fixme: mouse listening screws screen.exec
+
+      const unlockModal = lockModal(`Starting sh in container ${containers.active.name}`)
 
       await screen.exec('docker', ['exec', '-it', containers.active.name, 'sh'])
 
-      loadingModal.active = false
-      unlock()
+      unlockModal()
+    })
+
+    screen.key(['enter'], () => {
+      containers.detailed = containers.active
+
+      // fixme: `view(App)` on `src/views/App.js` should handle this render
+      screen.render()
     })
   }
 
   render() {
+    const bindings = [
+      [kbd('S'), 'Start/Stop'],
+      [kbd('R'), 'Reload'],
+      [kbd('E'), 'Exec'],
+      [kbd('↵') + ' ', 'Detailed view']
+    ].map(entry => entry.join(': ')).join(' | ')
+
     return (
       <text
         left="0%"
@@ -77,7 +94,7 @@ class Shortcuts extends Component {
         height="4%"
         valign="middle"
         tags={true}
-        content={`${kbd('S')}: Start/Stop | ${kbd('R')}: Reload | ${kbd('E')}: Exec | ${kbd('Q')}: Quit`}
+        content={bindings}
       />
     )
   }
