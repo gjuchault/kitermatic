@@ -42,7 +42,7 @@ class ContainersList extends Component {
         left="0"
         onSelect={this.onSelect}
         width="25%"
-        height="95%"
+        height="99%"
         interactive={true}
         border={{ type: 'line' }}
         keys={true}

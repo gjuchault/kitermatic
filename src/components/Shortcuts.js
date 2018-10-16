@@ -89,9 +89,9 @@ class Shortcuts extends Component {
     return (
       <text
         left="0%"
-        top="95%"
+        top="99%"
         width="100%"
-        height="4%"
+        height="1"
         valign="middle"
         tags={true}
         content={bindings}

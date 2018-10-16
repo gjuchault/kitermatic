@@ -19,7 +19,7 @@ class ContainerLog extends Component {
         top="0"
         left="25%"
         width="75%"
-        height="95%"
+        height="99%"
         keys={true}
         interactive={true}
         alwaysScroll={true}
