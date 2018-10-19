@@ -11,6 +11,7 @@ let logStream
 const containers = store({
   detailed: null,
   active: null,
+  noDaemon: false,
   activeLogs: '',
   list: []
 })
@@ -60,7 +61,16 @@ export const listenForLogs = async () => {
 }
 
 export const refreshContainers = async () => {
-  const dContainers = await docker.listContainers({ all: true })
+  let dContainers
+
+  try {
+    dContainers = await docker.listContainers({ all: true })
+  } catch (err) {
+    containers.list = []
+    containers.noDaemon = true
+
+    return
+  }
 
   containers.list = dContainers.map(parseContainer)
 

@@ -13,6 +13,10 @@ class ContainerLog extends Component {
       label += `: ${containers.active.name}`
     }
 
+    const content = containers.noDaemon
+      ? 'Waiting for Docker daemon...'
+      : containers.activeLogs
+
     return (
       <box
         label={` ${label} `}
@@ -28,7 +32,7 @@ class ContainerLog extends Component {
         mouse={true}
         scrollbar={{ style: { bg: theme } }}
         style={{ border: { fg: theme } }}
-        content={containers.activeLogs}
+        content={content}
       />
     )
   }
