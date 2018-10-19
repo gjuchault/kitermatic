@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import env from '../env'
 
 const bg = env.KTRM_UI_THEME_BG || 'cyan'
@@ -19,6 +20,11 @@ class Tab extends Component {
       />
     )
   }
+}
+
+Tab.propTypes = {
+  content: PropTypes.string,
+  active: PropTypes.boolean
 }
 
 export default Tab

@@ -2,9 +2,11 @@
 // simplified code, added support for line breaks (fill)
 
 const childrenSize = function (out, el) {
-    if (!this.isRendered(el)) return out
-    out = Math.max(out, el.lpos.yl - el.lpos.yi)
-    return out
+  if (!this.isRendered(el)) return out
+
+  out = Math.max(out, el.lpos.yl - el.lpos.yi)
+
+  return out
 }
 
 module.exports = function (coords) {

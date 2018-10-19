@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import { view } from 'react-easy-state'
 import env from '../env'
 
@@ -25,6 +26,11 @@ class ContainerLog extends Component {
       />
     )
   }
+}
+
+ContainerLog.propTypes = {
+  label: PropTypes.string,
+  content: PropTypes.string
 }
 
 export default view(ContainerLog)

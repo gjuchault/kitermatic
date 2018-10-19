@@ -21,6 +21,7 @@
     "blessed": "gjuchault/blessed#patch-1",
     "dockerode": "^2.5.7",
     "dotenv": "^6.1.0",
+    "prop-types": "^15.6.2",
     "react": "^16.5.2",
     "react-blessed": "^0.3.0",
     "react-easy-state": "^6.0.4"
