@@ -9,7 +9,6 @@ let logs
 let logStream
 
 const containers = store({
-  detailed: null,
   active: null,
   noDaemon: false,
   activeLogs: '',

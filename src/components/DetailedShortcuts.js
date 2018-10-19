@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { view } from 'react-easy-state'
 import screen from '../screen'
-import containers from '../store/containers'
+import details from '../store/details'
 import env from '../env'
 
 const theme = env.KTRM_UI_THEME_BG || 'cyan'
@@ -10,12 +10,27 @@ const kbd = str => `{${theme}-fg}{bold}${str}{/bold}{/${theme}-fg}`
 
 class DetailedShortcuts extends Component {
   componentDidMount() {
-    screen.key('enter', () => {
-      containers.detailed = null
+    screen.key('g', () => {
+      details.tab = 'general'
+      screen.render()
+    })
 
-      // screen.unkey('s')
-      // screen.unkey('r')
-      // screen.unkey('e')
+    screen.key('v', () => {
+      details.tab = 'volumes'
+      screen.render()
+    })
+
+    screen.key('p', () => {
+      details.tab = 'ports'
+      screen.render()
+    })
+
+    screen.key('enter', () => {
+      details.detailed = null
+
+      screen.unkey('g')
+      screen.unkey('v')
+      screen.unkey('p')
       screen.unkey('enter')
       // fixme: `view(App)` on `src/views/App.js` should handle this render
       screen.render()

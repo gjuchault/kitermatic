@@ -5,6 +5,7 @@ import docker from '../docker'
 import env from '../env'
 import { isLocked, lock, unlock } from '../lock'
 import containers, { refreshContainers } from '../store/containers'
+import details from '../store/details'
 import loadingModal from '../store/loadingModal'
 
 const theme = env.KTRM_UI_THEME_BG || 'cyan'
@@ -71,7 +72,7 @@ class Shortcuts extends Component {
     })
 
     screen.key('enter', () => {
-      containers.detailed = containers.active
+      details.detailed = containers.active
 
       // fixme: `view(App)` on `src/views/App.js` should handle this render
       screen.unkey('s')

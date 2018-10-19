@@ -1,45 +1,27 @@
 import React, { Component } from 'react'
 import { view } from 'react-easy-state'
-import env from '../env'
+import details from '../store/details'
 
-import ContainerList from '../components/ContainersList'
 import DetailedShortcuts from '../components/DetailedShortcuts'
+import Tab from '../components/Tab'
 import flex from '../utils/flex'
-
-const theme = env.KTRM_UI_THEME_BG || 'cyan'
 
 class Container extends Component {
   render() {
     return (
       <>
-        <ContainerList/>
         <DetailedShortcuts />
         <layout left="25%" width="75%" height="10%" renderer={flex}>
-          <box
-            shrink={true}
-            border={{ type: 'line' }}
-            style={{ border: { fg: theme } }}
-            content="   General   "
-          />
-          <box
-            shrink={true}
-            border={{ type: 'line' }}
-            style={{ border: { fg: theme } }}
-            content="   Volumes   "
-          />
-          <box
-            shrink={true}
-            border={{ type: 'line' }}
-            style={{ border: { fg: theme } }}
-            content="   Ports   "
-          />
+          <Tab content="General" active={details.tab === 'general'} />
+          <Tab content="Volumes" active={details.tab === 'volumes'} />
+          <Tab content="Ports" active={details.tab === 'ports'} />
           <box
             shrink={false}
             fill={true}
-            content="space"
+            content=""
           />
           <box
-            content="Hello"
+            content={details.detailed.name + ' ' + details.tab}
           />
         </layout>
       </>
