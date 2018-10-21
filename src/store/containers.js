@@ -71,6 +71,7 @@ export const refreshContainers = async () => {
     return
   }
 
+  containers.noDaemon = false
   containers.list = dContainers.map(parseContainer)
 
   if (!containers.active) {
