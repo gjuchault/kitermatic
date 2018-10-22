@@ -24,7 +24,7 @@ class Tab extends Component {
 
 Tab.propTypes = {
   content: PropTypes.string,
-  active: PropTypes.boolean
+  active: PropTypes.bool
 }
 
 export default Tab

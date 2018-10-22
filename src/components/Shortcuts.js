@@ -72,14 +72,12 @@ class Shortcuts extends Component {
     })
 
     screen.key('enter', () => {
-      details.detailed = containers.active
-
-      // fixme: `view(App)` on `src/views/App.js` should handle this render
       screen.unkey('s')
       screen.unkey('r')
       screen.unkey('e')
       screen.unkey('enter')
-      screen.render()
+
+      details.detailed = containers.active
     })
   }
 

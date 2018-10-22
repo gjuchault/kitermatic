@@ -12,28 +12,27 @@ class DetailedShortcuts extends Component {
   componentDidMount() {
     screen.key('g', () => {
       details.tab = 'general'
-      screen.render()
     })
 
     screen.key('v', () => {
       details.tab = 'volumes'
-      screen.render()
     })
 
     screen.key('p', () => {
       details.tab = 'ports'
-      screen.render()
     })
 
     screen.key('enter', () => {
-      details.detailed = null
-
       screen.unkey('g')
       screen.unkey('v')
       screen.unkey('p')
       screen.unkey('enter')
-      // fixme: `view(App)` on `src/views/App.js` should handle this render
-      screen.render()
+
+      // fixme: when not using setTimeout, we get warning :
+      // Can only update a mounted or mounting component
+      setTimeout(() => {
+        details.detailed = null
+      }, 1)
     })
   }
 
