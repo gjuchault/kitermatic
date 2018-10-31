@@ -28,6 +28,10 @@ export const parseContainer = (container) => {
 }
 
 export const listenForLogs = async () => {
+  if (!containers.active) {
+    return
+  }
+
   const container = docker.getContainer(containers.active.id)
   let shouldClear = false
 

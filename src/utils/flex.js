@@ -21,7 +21,7 @@ module.exports = function (coords) {
 
   return (el, i) => {
     // if custom prop fill is present, start a new line
-    if (el.props.fill) {
+    if (el.props && el.props.fill) {
       rowOffset += this.children
         .slice(rowIndex, i)
         .reduce(childrenSize.bind(this), 0)

@@ -15,6 +15,8 @@ class Tab extends Component {
       <box
         shrink={true}
         border={{ type: 'line' }}
+        left={this.props.left}
+        top={this.props.top}
         style={style}
         content={`   ${this.props.content}   `}
       />
