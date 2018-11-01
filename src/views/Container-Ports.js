@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import { view } from 'react-easy-state'
 import env from '../env'
 
@@ -59,6 +60,10 @@ class Ports extends Component {
       </>
     )
   }
+}
+
+Ports.propTypes = {
+  data: PropTypes.object
 }
 
 export default view(Ports)

@@ -31,8 +31,8 @@ class ContainersList extends Component {
     const maxWidth = (process.stdout.columns / 4) - 2
 
     const separator = (maxWidth < name.length)
-    ? ' '
-    : '\n'
+      ? ' '
+      : '\n'
 
     return [
       name,

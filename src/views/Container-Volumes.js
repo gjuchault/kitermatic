@@ -5,7 +5,7 @@ class Volumes extends Component {
   render() {
     return (
       <>
-        Volumes
+        <box>Volumes</box>
       </>
     )
   }

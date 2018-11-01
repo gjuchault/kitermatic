@@ -1,14 +1,12 @@
 import React, { Component } from 'react'
 import { view } from 'react-easy-state'
 import details from '../store/details'
-import docker from '../docker'
 
 import ContainerGeneral from './Container-General'
 import ContainerVolumes from './Container-Volumes'
 import ContainerPorts from './Container-Ports'
 import DetailedShortcuts from '../components/DetailedShortcuts'
 import Tab from '../components/Tab'
-import flex from '../utils/flex'
 
 class Container extends Component {
   render() {

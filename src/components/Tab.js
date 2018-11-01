@@ -26,6 +26,8 @@ class Tab extends Component {
 
 Tab.propTypes = {
   content: PropTypes.string,
+  top: PropTypes.string,
+  left: PropTypes.string,
   active: PropTypes.bool
 }
 
