@@ -16,6 +16,7 @@ class General extends Component {
         <box
           width="75%"
           shrink={true}
+          scroll={true}
           left="25%"
           top="0%+3"
           label=" General "
@@ -39,6 +40,10 @@ class General extends Component {
           shrink={true}
           left="25%"
           top="0%+8"
+          height="100%-9"
+          alwaysScroll={true}
+          scrollable={true}
+          mouse={true}
           label=" Environment variables "
           border={{ type: 'line' }}
           style={{ border: { fg: theme } }}
