@@ -76,7 +76,16 @@ export const refreshContainers = async () => {
   }
 
   containers.noDaemon = false
-  containers.list = dContainers.map(parseContainer)
+
+  const newList = []
+
+  for (let dContainer of dContainers) {
+    const container = parseContainer(dContainer)
+    container.data = await docker.getContainer(container.id).inspect()
+
+    newList.push(container)
+  }
+  containers.list = newList
 
   if (!containers.active) {
     containers.active = containers.list[0]

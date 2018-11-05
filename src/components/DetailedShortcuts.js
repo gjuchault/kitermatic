@@ -31,7 +31,7 @@ class DetailedShortcuts extends Component {
       // fixme: when not using setTimeout, we get warning :
       // Can only update a mounted or mounting component
       setTimeout(() => {
-        details.detailed = null
+        details.detailed = false
       }, 1)
     })
   }

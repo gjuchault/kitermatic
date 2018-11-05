@@ -85,8 +85,7 @@ class Shortcuts extends Component {
       screen.unkey('e')
       screen.unkey('enter')
 
-      const container = docker.getContainer(containers.active.id)
-      details.detailed = await container.inspect()
+      details.detailed = true
     })
   }
 

@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { view } from 'react-easy-state'
+import containers from '../store/containers'
 import details from '../store/details'
 
 import ContainerGeneral from './Container-General'
@@ -16,9 +17,9 @@ class Container extends Component {
         <Tab left="25%" content="General" active={details.tab === 'general'} />
         <Tab left="25%+15" content="Volumes" active={details.tab === 'volumes'} />
         <Tab left="25%+30" content="Ports" active={details.tab === 'ports'} />
-        {details.tab === 'general' && <ContainerGeneral data={details.detailed} />}
-        {details.tab === 'volumes' && <ContainerVolumes data={details.detailed} />}
-        {details.tab === 'ports' && <ContainerPorts data={details.detailed} />}
+        {details.tab === 'general' && <ContainerGeneral data={containers.active.data} />}
+        {details.tab === 'volumes' && <ContainerVolumes data={containers.active.data} />}
+        {details.tab === 'ports' && <ContainerPorts data={containers.active.data} />}
       </>
     )
   }
