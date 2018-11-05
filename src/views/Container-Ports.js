@@ -14,7 +14,7 @@ class Ports extends Component {
     const ports = Object.keys(NS)
       .map((from) => [
         from.slice(0, from.indexOf('/')),
-        NS[from][0].HostIp + ':' + NS[from][0].HostPort
+        `${NS[from][0].HostIp}:${NS[from][0].HostPort}`
       ])
 
     return (
@@ -54,7 +54,7 @@ class Ports extends Component {
               key={i}
               top={`0%+${i}`}
               tags={true}
-              content={`${key(`${entry[0]} →`)} ${entry[1]}`} />
+              content={`{bold}${entry[0]}{/bold} → ${entry[1]}`} />
           ))}
         </box>
       </>
