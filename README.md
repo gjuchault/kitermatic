@@ -24,6 +24,8 @@ Kitematic for the terminal :whale: :wrench:
            ###################
                ############
 
+![](kitermatic.gif)
+
 ## Build
 
 ```
