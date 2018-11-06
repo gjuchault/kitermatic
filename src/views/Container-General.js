@@ -11,7 +11,7 @@ const lineNb = str => Math.ceil(str.length / ((process.stdout.columns * 3 / 4) -
 
 class General extends Component {
   render() {
-    const env = this.props.data.Config.Env.map(entry => entry.split('='))
+    const env = (this.props.data.Config.Env || []).map(entry => entry.split('='))
     const cmd = this.props.data.Config.Cmd || this.props.data.Config.Entrypoint || [ 'nil' ]
 
     let currentHeight = 0
