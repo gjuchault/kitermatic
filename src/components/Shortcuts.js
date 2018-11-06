@@ -67,7 +67,6 @@ class Shortcuts extends Component {
       }
 
       // fixme: mouse listening screws screen.exec
-
       const unlockModal = lockModal(`Starting sh in container ${containers.active.name}`)
 
       await screen.exec('docker', ['exec', '-it', containers.active.name, 'sh'])

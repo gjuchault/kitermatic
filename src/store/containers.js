@@ -1,9 +1,8 @@
-import stream from 'stream'
 import { store } from 'react-easy-state'
 import docker from '../docker'
 import env, { number } from '../env'
 
-const tail = number(env.KTRM_LOGS_TAIL, 100)
+const tail = number(env.KTRM_LOGS_TAIL, 1000)
 
 let logs
 let logStream
@@ -44,22 +43,16 @@ export const listenForLogs = async () => {
 
   logs = await container.logs({ follow: true, stdout: true, stderr: true, tail })
 
-  logStream = new stream.PassThrough()
-  logStream.destroy
-  logStream.on('data', chunk => {
+  logs.setEncoding('utf8')
+
+  logs.on('data', chunk => {
     if (shouldClear) {
       shouldClear = false
-      containers.activeLogs = chunk.toString('utf8')
+      containers.activeLogs = chunk
       return
     }
 
-    containers.activeLogs += chunk.toString('utf8')
-  })
-
-  container.modem.demuxStream(logs, logStream, logStream)
-
-  logs.on('end', () => {
-    logStream.end()
+    containers.activeLogs += chunk
   })
 }
 
