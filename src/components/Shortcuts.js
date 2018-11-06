@@ -5,22 +5,32 @@ import docker from '../docker'
 import env from '../env'
 import { isLocked, lock, unlock } from '../lock'
 import containers, { refreshContainers } from '../store/containers'
+import details from '../store/details'
 import loadingModal from '../store/loadingModal'
 
 const theme = env.KTRM_UI_THEME_BG || 'cyan'
 
 const kbd = str => `{${theme}-fg}{bold}${str}{/bold}{/${theme}-fg}`
 
+const lockModal = (message) => {
+  lock()
+  loadingModal.message = message
+  loadingModal.active = true
+
+  return () => {
+    loadingModal.active = false
+    unlock()
+  }
+}
+
 class Shortcuts extends Component {
   componentDidMount() {
-    screen.key(['s'], async () => {
-      if (isLocked) {
+    screen.key('s', async () => {
+      if (isLocked || !containers.active) {
         return
       }
 
-      lock()
-      loadingModal.message = `Stopping container ${containers.active.name}`
-      loadingModal.active = true
+      const unlockModal = lockModal(`Stopping container ${containers.active.name}`)
 
       const container = await docker.getContainer(containers.active.id)
 
@@ -34,50 +44,68 @@ class Shortcuts extends Component {
 
       await refreshContainers()
 
-      loadingModal.active = false
-      unlock()
+      unlockModal()
     })
 
-    screen.key(['r'], async () => {
-      if (isLocked) {
+    screen.key('r', async () => {
+      if (isLocked || !containers.active) {
         return
       }
 
-      lock()
-      loadingModal.message = `Restarting container ${containers.active.name}`
-      loadingModal.active = true
+      const unlockModal = lockModal(`Restarting container ${containers.active.name}`)
 
       const container = await docker.getContainer(containers.active.id)
-
       await container.restart()
       await refreshContainers()
 
-      loadingModal.active = false
-      unlock()
+      unlockModal()
     })
 
-    screen.key(['e'], async () => {
-      lock()
-      loadingModal.message = `Starting sh in container ${containers.active.name}`
-      loadingModal.active = true
+    screen.key('e', async () => {
+      if (!containers.active) {
+        return
+      }
+
+      // fixme: mouse listening screws screen.exec
+
+      const unlockModal = lockModal(`Starting sh in container ${containers.active.name}`)
 
       await screen.exec('docker', ['exec', '-it', containers.active.name, 'sh'])
 
-      loadingModal.active = false
-      unlock()
+      unlockModal()
+    })
+
+    screen.key('enter', async () => {
+      if (!containers.active) {
+        return
+      }
+
+      screen.unkey('s')
+      screen.unkey('r')
+      screen.unkey('e')
+      screen.unkey('enter')
+
+      details.detailed = true
     })
   }
 
   render() {
+    const bindings = [
+      [kbd('S'), 'Start/Stop'],
+      [kbd('R'), 'Reload'],
+      [kbd('E'), 'Exec'],
+      [kbd('↵') + ' ', 'Detailed view']
+    ].map(entry => entry.join(': ')).join(' | ')
+
     return (
       <text
         left="0%"
-        top="95%"
+        top="99%"
         width="100%"
-        height="4%"
+        height="1"
         valign="middle"
         tags={true}
-        content={`${kbd('S')}: Start/Stop | ${kbd('R')}: Reload | ${kbd('E')}: Exec | ${kbd('Q')}: Quit`}
+        content={bindings}
       />
     )
   }

@@ -10,6 +10,7 @@ let logStream
 
 const containers = store({
   active: null,
+  noDaemon: false,
   activeLogs: '',
   list: []
 })
@@ -27,6 +28,10 @@ export const parseContainer = (container) => {
 }
 
 export const listenForLogs = async () => {
+  if (!containers.active) {
+    return
+  }
+
   const container = docker.getContainer(containers.active.id)
   let shouldClear = false
 
@@ -59,9 +64,28 @@ export const listenForLogs = async () => {
 }
 
 export const refreshContainers = async () => {
-  const dContainers = await docker.listContainers({ all: true })
+  let dContainers
 
-  containers.list = dContainers.map(parseContainer)
+  try {
+    dContainers = await docker.listContainers({ all: true })
+  } catch (err) {
+    containers.list = []
+    containers.noDaemon = true
+
+    return
+  }
+
+  containers.noDaemon = false
+
+  const newList = []
+
+  for (let dContainer of dContainers) {
+    const container = parseContainer(dContainer)
+    container.data = await docker.getContainer(container.id).inspect()
+
+    newList.push(container)
+  }
+  containers.list = newList
 
   if (!containers.active) {
     containers.active = containers.list[0]

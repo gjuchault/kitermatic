@@ -34,5 +34,10 @@ module.exports = {
       "error",
       "never"
     ]
+  },
+  "settings": {
+    "react": {
+      "version": "16.0"
+    }
   }
 };

@@ -27,10 +27,17 @@ class ContainersList extends Component {
   }
 
   containerStr(c) {
+    const name = c.running ? c.name : `[stopped] ${c.name}`
+    const maxWidth = (process.stdout.columns / 4) - 2
+
+    const separator = (maxWidth < name.length)
+      ? ' '
+      : '\n'
+
     return [
-      c.running ? c.name : `[stopped] ${c.name}`,
+      name,
       `{grey-fg}${c.image}{/grey-fg}`
-    ].join('\n')
+    ].join(separator)
   }
 
   render() {
@@ -42,7 +49,7 @@ class ContainersList extends Component {
         left="0"
         onSelect={this.onSelect}
         width="25%"
-        height="95%"
+        height="99%"
         interactive={true}
         border={{ type: 'line' }}
         keys={true}
