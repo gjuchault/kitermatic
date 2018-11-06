@@ -1,3 +1,5 @@
 #!/usr/bin/env node
 
-require('../lib');
+process.env.NODE_ENV = 'production'
+
+require('../lib')

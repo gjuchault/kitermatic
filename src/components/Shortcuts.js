@@ -4,7 +4,7 @@ import screen from '../screen'
 import docker from '../docker'
 import env from '../env'
 import { isLocked, lock, unlock } from '../lock'
-import containers, { refreshContainers } from '../store/containers'
+import containers, { refreshContainers, listenForLogs } from '../store/containers'
 import details from '../store/details'
 import loadingModal from '../store/loadingModal'
 
@@ -30,9 +30,11 @@ class Shortcuts extends Component {
         return
       }
 
-      const unlockModal = lockModal(`Stopping container ${containers.active.name}`)
 
       const container = await docker.getContainer(containers.active.id)
+
+      const verb = containers.active.running ? 'Stopping' : 'Starting'
+      const unlockModal = lockModal(`${verb} container ${containers.active.name}`)
 
       if (containers.active.running) {
         containers.active.running = false
@@ -40,6 +42,7 @@ class Shortcuts extends Component {
       } else {
         containers.active.running = true
         await container.start()
+        listenForLogs()
       }
 
       await refreshContainers()
