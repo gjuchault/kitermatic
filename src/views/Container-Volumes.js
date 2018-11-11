@@ -2,10 +2,9 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { view } from 'react-easy-state'
 import env from '../env'
+import kbd from '../utils/emphasize'
 
-const theme = env.KTRM_UI_THEME_BG || 'cyan'
-
-const key = str => `{${theme}-fg}{bold}${str}{/bold}{/${theme}-fg}`
+const fg = env.KTRM_UI_THEME_BG
 
 const lineNb = str => Math.ceil(str.length / ((process.stdout.columns * 3 / 4) - 2))
 
@@ -29,10 +28,10 @@ class Volumes extends Component {
           mouse={true}
           label=" Volumes "
           border={{ type: 'line' }}
-          style={{ border: { fg: theme } }}
+          style={{ border: { fg } }}
         >
           {mounts.map((entry, i) => {
-            const content = `${entry[0]} ${key('→')} ${entry[1]}`
+            const content = `${entry[0]} ${kbd('→')} ${entry[1]}`
             const envHeight = lineNb(content)
 
             currentHeight += envHeight

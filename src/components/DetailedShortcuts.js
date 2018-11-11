@@ -1,12 +1,8 @@
 import React, { Component } from 'react'
 import { view } from 'react-easy-state'
 import screen from '../screen'
+import kbd from '../utils/emphasize'
 import details from '../store/details'
-import env from '../env'
-
-const theme = env.KTRM_UI_THEME_BG || 'cyan'
-
-const kbd = str => `{${theme}-fg}{bold}${str}{/bold}{/${theme}-fg}`
 
 class DetailedShortcuts extends Component {
   componentDidMount() {

@@ -4,8 +4,8 @@ import throttle from 'lodash.throttle'
 import env from '../env'
 import containers, { listenForLogs } from '../store/containers'
 
-const theme = env.KTRM_UI_THEME_BG || 'cyan'
-const themeFg = env.KTRM_UI_THEME_FG || 'black'
+const theme = env.KTRM_UI_THEME_BG
+const themeFg = env.KTRM_UI_THEME_FG
 
 class ContainersList extends Component {
   constructor() {

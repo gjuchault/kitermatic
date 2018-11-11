@@ -2,8 +2,8 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import env from '../env'
 
-const bg = env.KTRM_UI_THEME_BG || 'cyan'
-const fg = env.KTRM_UI_THEME_FG || 'black'
+const bg = env.KTRM_UI_THEME_BG
+const fg = env.KTRM_UI_THEME_FG
 
 class Tab extends Component {
   render() {

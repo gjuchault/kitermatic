@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { view } from 'react-easy-state'
 import env from '../env'
 
-const theme = env.KTRM_UI_THEME_BG || 'cyan'
+const theme = env.KTRM_UI_THEME_BG
 
 class ContainerLog extends Component {
   render() {

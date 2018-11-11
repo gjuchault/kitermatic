@@ -2,14 +2,10 @@ import React, { Component } from 'react'
 import { view } from 'react-easy-state'
 import screen from '../screen'
 import docker from '../docker'
-import env from '../env'
+import kbd from '../utils/emphasize'
 import containers, { refreshContainers, listenForLogs } from '../store/containers'
 import details from '../store/details'
 import loadingModal from '../store/loadingModal'
-
-const theme = env.KTRM_UI_THEME_BG || 'cyan'
-
-const kbd = str => `{${theme}-fg}{bold}${str}{/bold}{/${theme}-fg}`
 
 const lockModal = (message) => {
   loadingModal.message = message

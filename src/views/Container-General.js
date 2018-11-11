@@ -2,10 +2,9 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { view } from 'react-easy-state'
 import env from '../env'
+import kbd from '../utils/emphasize'
 
-const theme = env.KTRM_UI_THEME_BG || 'cyan'
-
-const key = str => `{${theme}-fg}{bold}${str}{/bold}{/${theme}-fg}`
+const fg = env.KTRM_UI_THEME_BG
 
 const lineNb = str => Math.ceil(str.length / ((process.stdout.columns * 3 / 4) - 2))
 
@@ -25,24 +24,24 @@ class General extends Component {
           top="0%+3"
           label=" General "
           border={{ type: 'line' }}
-          style={{border: { fg: theme }}}
+          style={{border: { fg }}}
         >
           <box
             shrink={true}
             tags={true}
-            content={`${key('Id  :')} ${this.props.data.Id}`}
+            content={`${kbd('Id  :')} ${this.props.data.Id}`}
           />
           <box
             shrink={true}
             top="0%+1"
             tags={true}
-            content={`${key('Name:')} ${this.props.data.Name.slice(1)}`}
+            content={`${kbd('Name:')} ${this.props.data.Name.slice(1)}`}
           />
           <box
             shrink={true}
             top="0%+2"
             tags={true}
-            content={`${key('Command:')} ${cmd.join(' ')}`}
+            content={`${kbd('Command:')} ${cmd.join(' ')}`}
           />
         </box>
         <box
@@ -56,10 +55,10 @@ class General extends Component {
           mouse={true}
           label=" Environment variables "
           border={{ type: 'line' }}
-          style={{ border: { fg: theme } }}
+          style={{ border: { fg } }}
         >
           {env.map((entry, i) => {
-            const content = `${key(`${entry[0]}:`)} ${entry[1]}`
+            const content = `${kbd(`${entry[0]}:`)} ${entry[1]}`
             const envHeight = lineNb(content)
 
             currentHeight += envHeight
