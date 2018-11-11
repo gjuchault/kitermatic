@@ -1,8 +1,8 @@
 import { store } from 'react-easy-state'
 import docker from '../docker'
-import env, { number } from '../env'
+import env from '../env'
 
-const tail = number(env.KTRM_LOGS_TAIL, 1000)
+const tail = env.KTRM_LOGS_TAIL
 
 let logs
 let logStream
