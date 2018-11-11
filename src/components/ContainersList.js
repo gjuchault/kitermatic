@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { view } from 'react-easy-state'
+import throttle from 'lodash.throttle'
 import env from '../env'
 import containers, { listenForLogs } from '../store/containers'
 
@@ -14,11 +15,11 @@ class ContainersList extends Component {
 
   componentDidMount() {
     this.list.focus()
-    this.list.on('keypress', (_, key) => {
+    this.list.on('keypress', throttle((_, key) => {
       if (key.name === 'up' || key.name === 'down') {
         this.list.enterSelected()
       }
-    })
+    }, 200))
   }
 
   onSelect() {
