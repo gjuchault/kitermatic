@@ -3,7 +3,6 @@ import { view } from 'react-easy-state'
 import screen from '../screen'
 import docker from '../docker'
 import env from '../env'
-import { isLocked, lock, unlock } from '../lock'
 import containers, { refreshContainers, listenForLogs } from '../store/containers'
 import details from '../store/details'
 import loadingModal from '../store/loadingModal'
@@ -13,20 +12,18 @@ const theme = env.KTRM_UI_THEME_BG || 'cyan'
 const kbd = str => `{${theme}-fg}{bold}${str}{/bold}{/${theme}-fg}`
 
 const lockModal = (message) => {
-  lock()
   loadingModal.message = message
   loadingModal.active = true
 
   return () => {
     loadingModal.active = false
-    unlock()
   }
 }
 
 class Shortcuts extends Component {
   componentDidMount() {
     screen.key('s', async () => {
-      if (isLocked || !containers.active) {
+      if (loadingModal.active || !containers.active) {
         return
       }
 
@@ -51,7 +48,7 @@ class Shortcuts extends Component {
     })
 
     screen.key('r', async () => {
-      if (isLocked || !containers.active) {
+      if (loadingModal.active || !containers.active) {
         return
       }
 
