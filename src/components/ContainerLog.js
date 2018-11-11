@@ -14,9 +14,6 @@ class ContainerLog extends Component {
         left="25%"
         width="75%"
         height="99%"
-        keys={true}
-        interactive={true}
-        alwaysScroll={true}
         border={{ type: 'line' }}
         scrollable={true}
         mouse={true}
