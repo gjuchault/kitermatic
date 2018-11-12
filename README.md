@@ -32,7 +32,7 @@ Kitematic for the terminal :whale: :wrench:
 npm install -g kitermatic
 ```
 
-## env variables / config
+## Config
 
 | Environment variable  |             Description             | Default |
 |-----------------------|-------------------------------------|---------|
