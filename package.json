@@ -1,6 +1,6 @@
 {
   "name": "kitermatic",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Kitematic for the terminal",
   "main": "lib/index.js",
   "repository": "https://github.com/gjuchault/kitermatic",
