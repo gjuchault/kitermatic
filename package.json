@@ -24,6 +24,7 @@
     "prop-types": "^15.6.2",
     "react": "^16.5.2",
     "react-blessed": "^0.3.0",
+    "react-dom": "^16.10.2",
     "react-easy-state": "^6.0.4"
   },
   "devDependencies": {
