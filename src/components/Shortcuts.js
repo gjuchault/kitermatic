@@ -30,9 +30,11 @@ class Shortcuts extends Component {
       const unlockModal = lockModal(`${verb} container ${containers.active.name}`)
 
       if (containers.active.running) {
+        // eslint-disable-next-line require-atomic-updates
         containers.active.running = false
         await container.stop()
       } else {
+        // eslint-disable-next-line require-atomic-updates
         containers.active.running = true
         await container.start()
         listenForLogs()

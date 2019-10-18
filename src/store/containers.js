@@ -41,6 +41,7 @@ export const listenForLogs = async () => {
     containers.activeLogs = 'Loading ...'
   }
 
+  // eslint-disable-next-line require-atomic-updates
   logs = await container.logs({ follow: true, stdout: true, stderr: true, tail })
 
   logs.setEncoding('utf8')
