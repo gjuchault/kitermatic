@@ -1,0 +1,7 @@
+src/
+.DS_Store
+.git
+.babelrc
+.eslintrc.js
+.travis.yml
+kitermatic.gif
