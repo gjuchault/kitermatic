@@ -31,6 +31,6 @@
     "react-blessed": "^0.6.1",
     "react-reconciler": "^0.24.0",
     "redux": "^4.0.4",
-    "redux-thunk": "^1.0.0"
+    "redux-thunk": "^2.3.0"
   }
 }
