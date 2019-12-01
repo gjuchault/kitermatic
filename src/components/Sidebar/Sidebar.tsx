@@ -8,20 +8,21 @@ import { env, KitermaticEnvironmentFlags } from '../../env'
 
 import { getContainerName } from './getContainerName'
 
+// FIXME: useEffect is called twice
+let sidebarMounted = false;
+
 const Sidebar: React.FC = () => {
   const dispatch = useDispatch()
   const containers = useSelector(getContainers)
   const listenForLogs = () => dispatch(thunks.listenForLogs())
   const list = useRef<any>()
-  const [currentlySelected, setCurrentlySelected] = useState<number>(0)
-  const [hasSetUpEvent, setHasSetUpEvent] = useState<boolean>(false)
 
   useEffect(() => {
-    if (!list.current || hasSetUpEvent) {
+    if (!list.current || sidebarMounted) {
       return
     }
 
-    setHasSetUpEvent(true)
+    sidebarMounted = true
 
     list.current.focus()
 
@@ -29,9 +30,7 @@ const Sidebar: React.FC = () => {
       if (
         key.name === 'up' ||
         key.name === 'down'
-        // currentlySelected !== list.current.selected
       ) {
-        setCurrentlySelected(list.current.selected)
         list.current.enterSelected()
       }
     })
