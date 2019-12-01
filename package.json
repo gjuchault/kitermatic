@@ -9,7 +9,8 @@
   "scripts": {
     "lint": "prettier --write \"src/**/*.{ts,tsx,js}\"",
     "build": "tsc",
-    "dev": "DEBUG=1 KTRM_LOGS_TAIL=10 ts-node src"
+    "dev": "DEBUG=1 KTRM_LOGS_TAIL=10 ts-node src",
+    "prepublishOnly": "yarn build"
   },
   "bin": {
     "kitermatic": "./bin/index.js"
