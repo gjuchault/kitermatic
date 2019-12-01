@@ -1,37 +1,35 @@
 {
   "name": "kitermatic",
-  "version": "0.1.3",
+  "version": "1.0.0",
   "description": "Kitematic for the terminal",
   "main": "lib/index.js",
   "repository": "https://github.com/gjuchault/kitermatic",
   "author": "Gabriel Juchault <gabriel.juchault@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "dev": "babel-node src",
-    "build": "babel src -d lib",
-    "lint": "eslint src",
-    "prepublish": "yarn build && yarn lint"
+    "lint": "prettier --write \"src/**/*.{ts,tsx,js}\"",
+    "build": "tsc",
+    "dev": "DEBUG=1 KTRM_LOGS_TAIL=10 ts-node src"
   },
   "bin": {
-    "kitermatic": "./bin/kitermatic.js"
-  },
-  "dependencies": {
-    "@babel/cli": "^7.6.4",
-    "@babel/preset-env": "^7.6.3",
-    "blessed": "gjuchault/blessed#patch-1",
-    "dockerode": "^3.0.2",
-    "lodash.throttle": "^4.1.1",
-    "prop-types": "^15.7.2",
-    "react": "^16.10.2",
-    "react-blessed": "^0.6.1",
-    "react-dom": "^16.10.2",
-    "react-easy-state": "^6.1.3"
+    "kitermatic": "./bin/index.js"
   },
   "devDependencies": {
-    "@babel/core": "^7.6.4",
-    "@babel/node": "^7.6.3",
-    "@babel/preset-react": "^7.6.3",
-    "eslint": "^6.5.1",
-    "eslint-plugin-react": "^7.16.0"
+    "@types/dockerode": "^2.5.20",
+    "@types/react": "^16.9.9",
+    "@types/react-blessed": "^0.3.1",
+    "@types/redux-thunk": "^2.1.0",
+    "prettier": "1.18.2",
+    "ts-node": "^8.4.1",
+    "typescript": "^3.6.4"
+  },
+  "dependencies": {
+    "dockerode": "^3.0.2",
+    "neo-blessed": "https://github.com/embark-framework/neo-blessed",
+    "react": "^16.10.2",
+    "react-blessed": "^0.6.1",
+    "react-reconciler": "^0.24.0",
+    "redux": "^4.0.4",
+    "redux-thunks": "^1.0.0"
   }
 }
