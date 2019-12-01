@@ -147,7 +147,10 @@ export const listenForLogs = (): ThunkAction<
       return
     }
 
-    if (currentLogStream) currentLogStream.removeAllListeners()
+    if (currentLogStream) {
+      currentLogStream.removeAllListeners()
+      dispatch(setLogStream(null));
+    }
 
     const initialLogs = await fetchLogsFromContainer(
       engine,

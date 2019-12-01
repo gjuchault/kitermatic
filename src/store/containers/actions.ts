@@ -30,7 +30,7 @@ export const setContainerRunning = (id: string, isRunning: boolean) => ({
   payload: { id, isRunning }
 })
 
-export const setLogStream = (logStream: NodeJS.ReadableStream) => ({
+export const setLogStream = (logStream: NodeJS.ReadableStream | null) => ({
   type: SET_LOG_STREAM,
   payload: logStream
 })
